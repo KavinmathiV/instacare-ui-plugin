@@ -744,21 +744,25 @@ class _GalleryState extends State<Gallery> {
                 name: 'Nursing',
                 description: 'Compassionate care',
                 price: 'from \u20B9499',
+                imagePath: 'packages/instacare_components/lib/src/assessts_patient/nursing.png',
               ),
               InstaCareServiceCategory(
                 name: 'Physiotherapy',
                 description: 'Professional care',
                 price: 'from \u20B9599',
+                imagePath: 'packages/instacare_components/lib/src/assessts_patient/physiotheraphy.png',
               ),
               InstaCareServiceCategory(
                 name: 'Caretaker',
                 description: 'Verified care',
                 price: 'from \u20B9699',
+                imagePath: 'packages/instacare_components/lib/src/assessts_patient/caretaker.png',
               ),
               InstaCareServiceCategory(
                 name: 'Live-in Care',
                 description: 'Assured care',
                 price: 'from \u20B9899',
+                imagePath: 'packages/instacare_components/lib/src/assessts_patient/liveincare.png',
               ),
             ],
             onCategoryTap: (category) {
@@ -877,7 +881,6 @@ class _GalleryState extends State<Gallery> {
                 price: '\u20B9500',
                 description:
                     'Monitoring essential body parameters such as blood pressure, pulse, and oxygen levels.',
-                imageAsset: InstaCareServiceAssets.nursing,
                 isNew: true,
               ),
               InstaCareServiceListItem(
@@ -886,7 +889,6 @@ class _GalleryState extends State<Gallery> {
                 price: '\u20B9500',
                 description:
                     'Basic cleaning and dressing of small cuts, abrasions, or minor wounds.',
-                imageAsset: InstaCareServiceAssets.caretaker,
               ),
               InstaCareServiceListItem(
                 name: 'Wound Dressing (Major)',
@@ -894,7 +896,6 @@ class _GalleryState extends State<Gallery> {
                 price: '\u20B9500',
                 description:
                     'Sterile dressing and care for large, deep, or post-surgical wounds.',
-                imageAsset: InstaCareServiceAssets.physiotherapy,
               ),
             ],
             onItemTap: (item) {},

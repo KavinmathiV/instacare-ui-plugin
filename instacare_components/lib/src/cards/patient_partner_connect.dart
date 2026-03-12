@@ -44,12 +44,12 @@ class InstaCarePatientPartnerConnect extends StatelessWidget {
                   ),
                 ),
           ),
-          Expanded(
+          const Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: EdgeInsets.symmetric(horizontal: 8),
               child: CustomPaint(
-                size: const Size(double.infinity, 2),
-                painter: const _DottedLinePainter(color: AppColors.natural7),
+                size: Size(double.infinity, 2),
+                painter: _DottedLinePainter(color: AppColors.natural7),
               ),
             ),
           ),

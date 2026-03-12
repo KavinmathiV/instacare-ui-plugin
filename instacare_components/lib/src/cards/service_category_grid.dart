@@ -7,11 +7,13 @@ class InstaCareServiceCategory {
   final String name;
   final String description;
   final String price;
+  final String? imagePath;
 
   const InstaCareServiceCategory({
     required this.name,
     required this.description,
     required this.price,
+    this.imagePath,
   });
 }
 
@@ -61,81 +63,110 @@ class _ServiceCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final w = constraints.maxWidth;
-          final h = w / 1.35;
-          final leafWidth = w * 0.35;
-          final leafInset = w * 0.04;
+      child: category.imagePath != null
+          ? _buildImageCard()
+          : _buildPaintedCard(),
+    );
+  }
 
-          return Container(
-            decoration: BoxDecoration(
-              color: AppColors.serviceCardBackground,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            clipBehavior: Clip.antiAlias,
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: CustomPaint(
-                    painter: _DotTexturePainter(
-                      color: AppColors.baseWhite.withValues(alpha: 0.09),
-                      cutOffRight: leafWidth,
-                      spacing: 10,
-                      radius: 0.8,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: leafInset,
-                  top: leafInset,
-                  bottom: leafInset,
-                  width: leafWidth,
-                  child: CustomPaint(
-                    painter: _LeafBranchPainter(
-                      color: AppColors.serviceCardAccent.withValues(alpha: 0.7),
-                      scale: h / 120,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(14),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        category.name,
-                        style: InstaCareTypography.h3.copyWith(
-                          color: AppColors.serviceCardTitle,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        category.description,
-                        style: InstaCareTypography.s.copyWith(
-                          color: AppColors.serviceCardBody,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        category.price,
-                        style: InstaCareTypography.s.copyWith(
-                          color: AppColors.serviceCardBody,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
+  Widget _buildImageCard() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.gray7.withValues(alpha: 0.3),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
+      clipBehavior: Clip.antiAlias,
+      child: FittedBox(
+        fit: BoxFit.fill,
+        child: Image.asset(
+          category.imagePath!,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPaintedCard() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final w = constraints.maxWidth;
+        final h = w / 1.35;
+        final leafWidth = w * 0.35;
+        final leafInset = w * 0.04;
+
+        return Container(
+          decoration: BoxDecoration(
+            color: AppColors.serviceCardBackground,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: CustomPaint(
+                  painter: _DotTexturePainter(
+                    color: AppColors.baseWhite.withValues(alpha: 0.09),
+                    cutOffRight: leafWidth,
+                    spacing: 10,
+                    radius: 0.8,
+                  ),
+                ),
+              ),
+              Positioned(
+                right: leafInset,
+                top: leafInset,
+                bottom: leafInset,
+                width: leafWidth,
+                child: CustomPaint(
+                  painter: _LeafBranchPainter(
+                    color:
+                        AppColors.serviceCardAccent.withValues(alpha: 0.7),
+                    scale: h / 120,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(14),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      category.name,
+                      style: InstaCareTypography.h3.copyWith(
+                        color: AppColors.serviceCardTitle,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      category.description,
+                      style: InstaCareTypography.s.copyWith(
+                        color: AppColors.serviceCardBody,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      category.price,
+                      style: InstaCareTypography.s.copyWith(
+                        color: AppColors.serviceCardBody,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -157,19 +188,25 @@ Future<void> showServiceCategoryDialog({
           children: [
             Container(
               height: 120,
-              width: 120,
+              width: double.infinity,
               decoration: BoxDecoration(
                 color: AppColors.serviceCardBackground,
                 borderRadius: BorderRadius.circular(12),
               ),
               clipBehavior: Clip.antiAlias,
-              child: CustomPaint(
-                size: const Size(120, 120),
-                painter: _LeafBranchPainter(
-                  color: AppColors.serviceCardAccent.withValues(alpha: 0.85),
-                  scale: 1.2,
-                ),
-              ),
+              child: category.imagePath != null
+                  ? Image.asset(
+                      category.imagePath!,
+                      fit: BoxFit.cover,
+                    )
+                  : CustomPaint(
+                      size: const Size(120, 120),
+                      painter: _LeafBranchPainter(
+                        color: AppColors.serviceCardAccent
+                            .withValues(alpha: 0.85),
+                        scale: 1.2,
+                      ),
+                    ),
             ),
             const SizedBox(height: 16),
             Text(

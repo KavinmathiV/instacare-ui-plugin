@@ -2,34 +2,21 @@ import 'package:flutter/material.dart';
 import '../theme/color.dart';
 import '../theme/typography.dart';
 
-class InstaCareServiceAssets {
-  InstaCareServiceAssets._();
-
-  static const String _base =
-      'packages/instacare_components/src/assessts_patient';
-  static const String nursing = '$_base/nursing.png';
-  static const String physiotherapy = '$_base/physiotheraphy.png';
-  static const String caretaker = '$_base/caretaker.png';
-  static const String liveinCare = '$_base/liveincare.png';
-}
-
 class InstaCareServiceListItem {
   final String name;
   final String duration;
   final String price;
   final String description;
-  final String? imageAsset;
-  final Widget? image;
   final bool isNew;
+  final ImageProvider? image;
 
   const InstaCareServiceListItem({
     required this.name,
     required this.duration,
     required this.price,
     required this.description,
-    this.imageAsset,
-    this.image,
     this.isNew = false,
+    this.image,
   });
 }
 
@@ -79,40 +66,43 @@ class _ServiceTile extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.baseWhite,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.primary8, width: 1),
+          color: AppColors.natural10,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.gray7.withValues(alpha: 0.3),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(12),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Image section
             ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: SizedBox(
-                width: 90,
-                height: 90,
-                child: item.image ??
-                    (item.imageAsset != null
-                        ? Image.asset(
-                            item.imageAsset!,
-                            fit: BoxFit.cover,
-                            width: 90,
-                            height: 90,
-                          )
-                        : Container(
-                            color: AppColors.natural9,
-                            child: const Center(
-                              child: Icon(
-                                Icons.medical_services_outlined,
-                                size: 32,
-                                color: AppColors.primary5,
-                              ),
-                            ),
-                          )),
-              ),
+              borderRadius: BorderRadius.circular(12),
+              child: item.image != null
+                  ? Image(
+                      image: item.image!,
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(
+                      width: 100,
+                      height: 100,
+                      color: AppColors.primary9,
+                      child: const Icon(
+                        Icons.medical_services_outlined,
+                        size: 36,
+                        color: AppColors.primary5,
+                      ),
+                    ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 14),
+            // Text content section
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,7 +113,7 @@ class _ServiceTile extends StatelessWidget {
                         child: Text(
                           item.name,
                           style: InstaCareTypography.m.copyWith(
-                            fontSize: 15,
+                            fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: AppColors.gray2,
                           ),
@@ -156,7 +146,7 @@ class _ServiceTile extends StatelessWidget {
                       ],
                     ],
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 6),
                   Row(
                     children: [
                       const Icon(

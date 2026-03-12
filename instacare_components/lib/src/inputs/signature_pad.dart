@@ -98,6 +98,12 @@ class InstaCareSignaturePadState extends State<InstaCareSignaturePad> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(11),
             child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onPanDown: (_) {
+                // Disable parent scrolling while signing
+                final scrollable = Scrollable.maybeOf(context);
+                scrollable?.position.hold(() {});
+              },
               onPanStart: (details) {
                 setState(() {
                   _currentStroke = [details.localPosition];
