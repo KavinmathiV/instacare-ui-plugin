@@ -64,7 +64,7 @@ class InstaCareRadioButtons<T> extends StatelessWidget {
                   Text(
                     option.label,
                     style: InstaCareTypography.r.copyWith(
-                      color: AppColors.gray2,
+                      color: AppColors.gray200,
                     ),
                   ),
                 ],

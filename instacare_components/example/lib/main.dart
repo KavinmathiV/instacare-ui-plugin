@@ -922,7 +922,7 @@ class _GalleryState extends State<Gallery> {
       children: [
         _buildFontWeightsGrid(GoogleFonts.crimsonPro, 'Crimson Pro (Headings)'),
         const SizedBox(height: 32),
-        const Divider(height: 1, color: AppColors.ivory3),
+        const Divider(height: 1, color: AppColors.ivory300),
         const SizedBox(height: 32),
         _buildFontWeightsGrid(GoogleFonts.figtree, 'Figtree (Body)'),
       ],
@@ -961,7 +961,7 @@ class _GalleryState extends State<Gallery> {
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: AppColors.gray5,
+            color: AppColors.gray500,
             letterSpacing: 0.5,
           ),
         ),
@@ -976,7 +976,7 @@ class _GalleryState extends State<Gallery> {
                   child: Text(
                     'w$w',
                     style:
-                        const TextStyle(fontSize: 12, color: AppColors.gray1),
+                        const TextStyle(fontSize: 12, color: AppColors.gray100),
                   ),
                 ),
                 Expanded(
@@ -985,7 +985,7 @@ class _GalleryState extends State<Gallery> {
                     style: fontStyle(
                       fontWeight: FontWeight.values[w ~/ 100 - 1],
                       fontSize: 16,
-                    ).copyWith(color: AppColors.gray2),
+                    ).copyWith(color: AppColors.gray200),
                   ),
                 ),
               ],
@@ -1022,7 +1022,7 @@ class _GalleryState extends State<Gallery> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Ag',
-                  style: style.copyWith(color: AppColors.gray1, height: 1),
+                  style: style.copyWith(color: AppColors.gray100, height: 1),
                 ),
               ),
               const SizedBox(width: 16),
@@ -1031,18 +1031,18 @@ class _GalleryState extends State<Gallery> {
                 style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 15,
-                  color: AppColors.gray1,
+                  color: AppColors .gray100,
                 ),
               ),
               Text(
                 ' \u00B7 ',
-                style: TextStyle(color: AppColors.gray5.withValues(alpha: 0.5)),
+                style: TextStyle(color: AppColors.gray500.withValues(alpha: 0.5)),
               ),
               Text(
                 detail,
                 style: const TextStyle(
                   fontSize: 14,
-                  color: AppColors.gray5,
+                  color: AppColors.gray500,
                 ),
               ),
             ],
