@@ -1057,6 +1057,28 @@ class _GalleryState extends State<Gallery> {
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       children: [
         _sectionHeading('Common Components'),
+        _sectionHeading('Logo'),
+        _componentBlock(
+          title: 'Instacare Logo',
+          fileName: 'common/logo.dart',
+          child: const Column(
+            children: [
+              InstaCareLogo(),
+              SizedBox(height: 20),
+            ],
+          ),
+        ),
+        _componentBlock(
+          title: 'LogoIcon',
+          fileName: 'common/logo.dart',
+          child: const InstaCareLogoIcon(size: 32, color: AppColors.primary3),
+        ),
+        _componentBlock(
+          title: 'LogoText',
+          fileName: 'common/logo.dart',
+          child:
+              const InstaCareLogoText(fontSize: 24, color: AppColors.primary3),
+        ),
         _sectionHeading('Typography'),
         _componentBlock(
           title: 'Font Weights',
