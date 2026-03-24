@@ -963,532 +963,270 @@ class _GalleryState extends State<Gallery> {
     );
   }
 
-  Widget _buildFontWeightsGrid(
-    TextStyle Function({
-      TextStyle? textStyle,
-      Color? color,
-      Color? backgroundColor,
-      double? fontSize,
-      FontWeight? fontWeight,
-      FontStyle? fontStyle,
-      double? letterSpacing,
-      double? wordSpacing,
-      TextBaseline? textBaseline,
-      double? height,
-      Locale? locale,
-      Paint? foreground,
-      Paint? background,
-      List<Shadow>? shadows,
-      List<FontFeature>? fontFeatures,
-      TextDecoration? decoration,
-      Color? decorationColor,
-      TextDecorationStyle? decorationStyle,
-      double? decorationThickness,
-    }) fontStyle,
-    String name,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          name,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.gray500,
-            letterSpacing: 0.5,
-          ),
+
+  List<_SectionEntry> get _commonSections {
+    return [
+      const _SectionEntry.heading('Common Components'),
+      const _SectionEntry.heading('Logo'),
+      _SectionEntry.component(
+        title: 'Instacare Logo',
+        fileName: 'common/logo.dart',
+        builder: (_) => const Column(
+          children: [InstaCareLogo(), SizedBox(height: 20)],
         ),
-        const SizedBox(height: 16),
-        ...[100, 200, 300, 400, 500, 600, 700, 800, 900].map((w) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 40,
-                  child: Text(
-                    'w$w',
-                    style:
-                        const TextStyle(fontSize: 12, color: AppColors.gray100),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    'The quick brown fox jumps over the lazy dog',
-                    style: fontStyle(
-                      fontWeight: FontWeight.values[w ~/ 100 - 1],
-                      fontSize: 16,
-                    ).copyWith(color: AppColors.gray200),
-                  ),
-                ),
-              ],
+      ),
+      _SectionEntry.component(
+        title: 'LogoIcon',
+        fileName: 'common/logo.dart',
+        builder: (_) => const InstaCareLogoIcon(size: 32, color: AppColors.primary300),
+      ),
+      _SectionEntry.component(
+        title: 'LogoText',
+        fileName: 'common/logo.dart',
+        builder: (_) => const InstaCareLogoText(fontSize: 24, color: AppColors.primary300),
+      ),
+      const _SectionEntry.heading('Typography'),
+      _SectionEntry.component(
+        title: 'Font Weights',
+        fileName: 'google_fonts',
+        builder: (_) => _buildFontWeightsSection(),
+      ),
+      _SectionEntry.component(
+        title: 'Text Styles',
+        fileName: 'typography.dart',
+        builder: (_) => _buildTextStylesSection(),
+      ),
+      const _SectionEntry.heading('Headings'),
+      _SectionEntry.component(
+        title: 'Top Header Title',
+        fileName: 'theme/heading.dart',
+        builder: (_) => InstaCareHeading.topHeaderTitle('Top Header Title'),
+      ),
+      _SectionEntry.component(
+        title: 'Title with Back Button',
+        fileName: 'theme/heading.dart',
+        builder: (_) => InstaCareHeading.titleWithBackButton(text: 'Title', onBackPressed: () {}),
+      ),
+      const _SectionEntry.heading('Animation'),
+      _SectionEntry.component(
+        title: 'Skeleton Loading',
+        fileName: 'animation/skeleton_loading.dart',
+        builder: (_) => _skeletonPagePreview(),
+      ),
+      _SectionEntry.component(
+        title: 'Carousel',
+        fileName: 'animation/carousel.dart',
+        builder: (_) => InstaCareCarousel(
+          height: 160,
+          items: [
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.primary900,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.ivory300),
+                boxShadow: [BoxShadow(color: AppColors.gray600.withValues(alpha: 0.15), blurRadius: 8, offset: const Offset(0, 2))],
+              ),
+              child: const Center(child: Text('Card 1', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.gray200))),
             ),
-          );
-        }),
-      ],
-    );
-  }
-
-  Widget _buildTextStylesSection() {
-    final styles = [
-      ('h1', InstaCareTypography.h1, '24/Auto'),
-      ('h2', InstaCareTypography.h2, '20/Auto'),
-      ('h3', InstaCareTypography.h3, '18/Auto'),
-      ('h4', InstaCareTypography.h4, '14/Auto'),
-      ('p', InstaCareTypography.p, '14/Auto'),
-      ('r', InstaCareTypography.r, '14/Auto'),
-      ('m', InstaCareTypography.m, '14/Auto'),
-      ('s', InstaCareTypography.s, '12/Auto'),
-      ('sm', InstaCareTypography.sm, '12/Auto'),
-      ('xs', InstaCareTypography.xs, '10/Auto'),
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.ivory700,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.ivory300),
+                boxShadow: [BoxShadow(color: AppColors.gray600.withValues(alpha: 0.15), blurRadius: 8, offset: const Offset(0, 2))],
+              ),
+              child: const Center(child: Text('Card 2', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.gray200))),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.primary800,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.ivory300),
+                boxShadow: [BoxShadow(color: AppColors.gray600.withValues(alpha: 0.15), blurRadius: 8, offset: const Offset(0, 2))],
+              ),
+              child: const Center(child: Text('Card 3', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.gray200))),
+            ),
+          ],
+        ),
+      ),
+      _SectionEntry.component(
+        title: 'Markdown Render Widget',
+        fileName: 'common/markdown.dart',
+        builder: (_) => _markdownTogglePreview(),
+      ),
+      const _SectionEntry.heading('Buttons'),
+      _SectionEntry.component(
+        title: 'Button States',
+        fileName: 'button.dart',
+        builder: (_) => Column(
+          children: [
+            InstaCareButton(text: 'Primary Button', fullWidth: true, onPressed: () {}),
+            const SizedBox(height: 10),
+            InstaCareButton.secondary(text: 'Secondary Button', fullWidth: true, onPressed: () {}),
+            const SizedBox(height: 10),
+            InstaCareButton(
+              text: loading ? 'Loading...' : 'Load Data',
+              isLoading: loading,
+              fullWidth: true,
+              onPressed: () {
+                setState(() => loading = true);
+                Future.delayed(const Duration(seconds: 1), () {
+                  if (mounted) setState(() => loading = false);
+                });
+              },
+            ),
+            const SizedBox(height: 10),
+            const InstaCareButton(text: 'Disabled', fullWidth: true, isDisabled: true, onPressed: null),
+          ],
+        ),
+      ),
+      const _SectionEntry.heading('Inputs'),
+      _SectionEntry.component(
+        title: 'Text Inputs',
+        fileName: 'text_field.dart',
+        builder: (_) => const Column(
+          children: [
+            InstaCareTextField(label: 'Text Input', hint: 'placeholder', fillColor: AppColors.ivory700, borderColor: AppColors.primary300, focusedBorderColor: AppColors.primary200, hintColor: AppColors.gray600),
+            SizedBox(height: 12),
+            InstaCareTextField(label: 'Email', hint: 'Enter your email', prefixIcon: Icons.email_outlined),
+          ],
+        ),
+      ),
+      _SectionEntry.component(
+        title: 'Phone Input',
+        fileName: 'phone_input.dart',
+        builder: (_) => const InstaCarePhoneInput(label: 'Mobile Number With Region Selector', hint: '87921 34521'),
+      ),
+      _SectionEntry.component(
+        title: 'Dropdown',
+        fileName: 'dropdown.dart',
+        builder: (_) => InstaCareDropdown<String>(
+          label: 'Gender',
+          hint: 'Select gender',
+          value: selectedGender,
+          items: const ['Male', 'Female', 'Other'],
+          onChanged: (value) => setState(() => selectedGender = value),
+        ),
+      ),
+      _SectionEntry.component(
+        title: 'Dropdown With Checkbox',
+        fileName: 'dropdown_with_checkbox.dart',
+        builder: (_) => InstaCareDropdownWithCheckbox<String>(
+          label: 'Drop Down With Check Box',
+          hint: 'Select options',
+          items: const ['check box 1', 'check box 2', 'check box 3'],
+          selectedItems: selectedMultiDropdown,
+          onChanged: (next) => setState(() => selectedMultiDropdown = next),
+        ),
+      ),
+      _SectionEntry.component(
+        title: 'Date Picker',
+        fileName: 'date_picker_field.dart',
+        builder: (_) => InstaCareDatePickerField(
+          label: 'Date Picker',
+          value: selectedDate,
+          onChanged: (next) => setState(() => selectedDate = next),
+        ),
+      ),
+      _SectionEntry.component(
+        title: 'Search Bar',
+        fileName: 'search_bar.dart',
+        builder: (_) => const InstaCareSearchBar(hint: 'Search services'),
+      ),
+      _SectionEntry.component(
+        title: 'Checkbox',
+        fileName: 'checkbox_field.dart',
+        builder: (_) => InstaCareCheckboxField(
+          value: checkOne,
+          onChanged: (checked) => setState(() => checkOne = checked ?? false),
+          label: 'Checkbox 1',
+        ),
+      ),
+      _SectionEntry.component(
+        title: 'OTP Input',
+        fileName: 'otp_input.dart',
+        builder: (_) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            InstaCareOtpInput(
+              length: 6,
+              onChanged: (value) => setState(() => otp = value),
+              onCompleted: (value) => setState(() => otp = value),
+            ),
+            if (otp.isNotEmpty) ...[const SizedBox(height: 8), Text('Entered OTP: $otp')],
+          ],
+        ),
+      ),
+      const _SectionEntry.heading('Selection'),
+      _SectionEntry.component(
+        title: 'Radio Buttons',
+        fileName: 'radio_buttons.dart',
+        builder: (_) => InstaCareRadioButtons<String>(
+          groupValue: selectedRadio,
+          options: const [InstaCareRadioOption(value: 'Yes', label: 'Yes'), InstaCareRadioOption(value: 'No', label: 'No')],
+          onChanged: (value) => setState(() => selectedRadio = value ?? 'Yes'),
+          direction: Axis.horizontal,
+        ),
+      ),
+      _SectionEntry.component(
+        title: 'Service Pills',
+        fileName: 'service_pills.dart',
+        builder: (_) => InstaCareServicePills(
+          services: const ['Minor', 'Major', 'Nursing'],
+          selected: selectedService,
+          onSelected: (value) => setState(() => selectedService = value),
+        ),
+      ),
+      _SectionEntry.component(
+        title: 'Filter Pills',
+        fileName: 'filter_pills.dart',
+        builder: (_) => InstaCareFilterPills(
+          items: const ['Wound Dressing', 'Injection', 'Vitals'],
+          selected: selectedFilters,
+          onToggle: (item) {
+            setState(() {
+              selectedFilters.contains(item) ? selectedFilters.remove(item) : selectedFilters.add(item);
+            });
+          },
+        ),
+      ),
+      _SectionEntry.component(
+        title: 'Rating Scale',
+        fileName: 'rating_scale.dart',
+        builder: (_) => InstaCareRatingScale(
+          currentRating: rating,
+          onRatingChanged: (value) => setState(() => rating = value),
+        ),
+      ),
+      const _SectionEntry.heading('Dialogs'),
+      _SectionEntry.component(
+        title: 'Confirmation Dialog',
+        fileName: 'confirmation_dialog.dart',
+        builder: (ctx) => InstaCareButton.secondary(
+          text: 'Pop confirmation',
+          onPressed: () async {
+            final confirmed = await showInstaCareConfirmationDialog(context: ctx, title: 'Confirmation', body: 'Do you want to continue?');
+            if (!mounted) return;
+            if (confirmed) ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(content: Text('Confirmed')));
+          },
+        ),
+      ),
+      _SectionEntry.component(
+        title: 'Snackbar',
+        fileName: 'snackbar.dart',
+        builder: (ctx) => Column(
+          children: [
+            InstaCareButton(text: 'Show Success Snackbar', fullWidth: true, onPressed: () { InstaCareSnackbar.show(context: ctx, type: InstaCareSnackbarType.success, title: 'Success', message: 'Your action was completed successfully!'); }),
+            const SizedBox(height: 10),
+            InstaCareButton(text: 'Show Error Snackbar', fullWidth: true, onPressed: () { InstaCareSnackbar.show(context: ctx, type: InstaCareSnackbarType.error, title: 'Error', message: 'Something went wrong. Please try again.'); }),
+            const SizedBox(height: 10),
+            InstaCareButton(text: 'Show Info Snackbar', fullWidth: true, onPressed: () { InstaCareSnackbar.show(context: ctx, type: InstaCareSnackbarType.info, title: 'Information', message: 'Here is some useful information for you.'); }),
+            const SizedBox(height: 10),
+            InstaCareButton(text: 'Show Pending Snackbar', fullWidth: true, onPressed: () { InstaCareSnackbar.show(context: ctx, type: InstaCareSnackbarType.pending, title: 'Pending', message: 'Your request is being processed.'); }),
+          ],
+        ),
+      ),
     ];
-
-    return Column(
-      children: styles.map((styleInfo) {
-        final (label, style, detail) = styleInfo;
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            children: [
-              Container(
-                width: 44,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Ag',
-                  style: style.copyWith(color: AppColors.gray100, height: 1),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Text(
-                label,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 15,
-                  color: AppColors.gray100,
-                ),
-              ),
-              Text(
-                ' \u00B7 ',
-                style:
-                    TextStyle(color: AppColors.gray500.withValues(alpha: 0.5)),
-              ),
-              Text(
-                detail,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: AppColors.gray500,
-                ),
-              ),
-            ],
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  Widget _buildCommonPage() {
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-      children: [
-        _sectionHeading('Common Components'),
-        _sectionHeading('Logo'),
-        _componentBlock(
-          title: 'Instacare Logo',
-          fileName: 'common/logo.dart',
-          child: const Column(
-            children: [
-              InstaCareLogo(),
-              SizedBox(height: 20),
-            ],
-          ),
-        ),
-        _componentBlock(
-          title: 'LogoIcon',
-          fileName: 'common/logo.dart',
-          child: const InstaCareLogoIcon(size: 32, color: AppColors.primary300),
-        ),
-        _componentBlock(
-          title: 'LogoText',
-          fileName: 'common/logo.dart',
-          child: const InstaCareLogoText(
-              fontSize: 24, color: AppColors.primary300),
-        ),
-        _sectionHeading('Typography'),
-        _componentBlock(
-          title: 'Font Weights',
-          fileName: 'google_fonts',
-          child: _buildFontWeightsSection(),
-        ),
-        _componentBlock(
-          title: 'Text Styles',
-          fileName: 'typography.dart',
-          child: _buildTextStylesSection(),
-        ),
-        _sectionHeading('Headings'),
-        _componentBlock(
-          title: 'Top Header Title',
-          fileName: 'theme/heading.dart',
-          child: InstaCareHeading.topHeaderTitle('Top Header Title'),
-        ),
-        _componentBlock(
-          title: 'Title with Back Button',
-          fileName: 'theme/heading.dart',
-          child: InstaCareHeading.titleWithBackButton(
-            text: 'Title',
-            onBackPressed: () {},
-          ),
-        ),
-        _sectionHeading('Animation'),
-        _componentBlock(
-          title: 'Skeleton Loading',
-          fileName: 'animation/skeleton_loading.dart',
-          child: _skeletonPagePreview(),
-        ),
-        _componentBlock(
-          title: 'Carousel',
-          fileName: 'animation/carousel.dart',
-          child: InstaCareCarousel(
-            height: 160,
-            items: [
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.primary900,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.ivory300),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.gray600.withValues(alpha: 0.15),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: const Center(
-                  child: Text(
-                    'Card 1',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.gray200,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.ivory700,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.ivory300),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.gray600.withValues(alpha: 0.15),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: const Center(
-                  child: Text(
-                    'Card 2',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.gray200,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.primary800,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.ivory300),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.gray600.withValues(alpha: 0.15),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: const Center(
-                  child: Text(
-                    'Card 3',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.gray200,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        _componentBlock(
-          title: 'Markdown Render Widget',
-          fileName: 'common/markdown.dart',
-          child: _markdownTogglePreview(),
-        ),
-        _sectionHeading('Buttons'),
-        _componentBlock(
-          title: 'Button States',
-          fileName: 'button.dart',
-          child: Column(
-            children: [
-              InstaCareButton(
-                  text: 'Primary Button', fullWidth: true, onPressed: () {}),
-              const SizedBox(height: 10),
-              InstaCareButton.secondary(
-                  text: 'Secondary Button', fullWidth: true, onPressed: () {}),
-              const SizedBox(height: 10),
-              InstaCareButton(
-                text: loading ? 'Loading...' : 'Load Data',
-                isLoading: loading,
-                fullWidth: true,
-                onPressed: () {
-                  setState(() => loading = true);
-                  Future.delayed(const Duration(seconds: 1), () {
-                    if (mounted) {
-                      setState(() => loading = false);
-                    }
-                  });
-                },
-              ),
-              const SizedBox(height: 10),
-              const InstaCareButton(
-                  text: 'Disabled',
-                  fullWidth: true,
-                  isDisabled: true,
-                  onPressed: null),
-            ],
-          ),
-        ),
-        _sectionHeading('Inputs'),
-        _componentBlock(
-          title: 'Text Inputs',
-          fileName: 'text_field.dart',
-          child: const Column(
-            children: [
-              InstaCareTextField(
-                label: 'Text Input',
-                hint: 'placeholder',
-                fillColor: AppColors.ivory700,
-                borderColor: AppColors.primary300,
-                focusedBorderColor: AppColors.primary200,
-                hintColor: AppColors.gray600,
-              ),
-              SizedBox(height: 12),
-              InstaCareTextField(
-                label: 'Email',
-                hint: 'Enter your email',
-                prefixIcon: Icons.email_outlined,
-              ),
-            ],
-          ),
-        ),
-        _componentBlock(
-          title: 'Phone Input',
-          fileName: 'phone_input.dart',
-          child: const InstaCarePhoneInput(
-            label: 'Mobile Number With Region Selector',
-            hint: '87921 34521',
-          ),
-        ),
-        _componentBlock(
-          title: 'Dropdown',
-          fileName: 'dropdown.dart',
-          child: InstaCareDropdown<String>(
-            label: 'Gender',
-            hint: 'Select gender',
-            value: selectedGender,
-            items: const ['Male', 'Female', 'Other'],
-            onChanged: (value) => setState(() => selectedGender = value),
-          ),
-        ),
-        _componentBlock(
-          title: 'Dropdown With Checkbox',
-          fileName: 'dropdown_with_checkbox.dart',
-          child: InstaCareDropdownWithCheckbox<String>(
-            label: 'Drop Down With Check Box',
-            hint: 'Select options',
-            items: const ['check box 1', 'check box 2', 'check box 3'],
-            selectedItems: selectedMultiDropdown,
-            onChanged: (next) => setState(() => selectedMultiDropdown = next),
-          ),
-        ),
-        _componentBlock(
-          title: 'Date Picker',
-          fileName: 'date_picker_field.dart',
-          child: InstaCareDatePickerField(
-            label: 'Date Picker',
-            value: selectedDate,
-            onChanged: (next) => setState(() => selectedDate = next),
-          ),
-        ),
-        _componentBlock(
-          title: 'Search Bar',
-          fileName: 'search_bar.dart',
-          child: const InstaCareSearchBar(hint: 'Search services'),
-        ),
-        _componentBlock(
-          title: 'Checkbox',
-          fileName: 'checkbox_field.dart',
-          child: InstaCareCheckboxField(
-            value: checkOne,
-            onChanged: (checked) => setState(() => checkOne = checked ?? false),
-            label: 'Checkbox 1',
-          ),
-        ),
-        _componentBlock(
-          title: 'OTP Input',
-          fileName: 'otp_input.dart',
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InstaCareOtpInput(
-                length: 6,
-                onChanged: (value) => setState(() => otp = value),
-                onCompleted: (value) => setState(() => otp = value),
-              ),
-              if (otp.isNotEmpty) ...[
-                const SizedBox(height: 8),
-                Text('Entered OTP: $otp'),
-              ],
-            ],
-          ),
-        ),
-        _sectionHeading('Selection'),
-        _componentBlock(
-          title: 'Radio Buttons',
-          fileName: 'radio_buttons.dart',
-          child: InstaCareRadioButtons<String>(
-            groupValue: selectedRadio,
-            options: const [
-              InstaCareRadioOption(value: 'Yes', label: 'Yes'),
-              InstaCareRadioOption(value: 'No', label: 'No'),
-            ],
-            onChanged: (value) =>
-                setState(() => selectedRadio = value ?? 'Yes'),
-            direction: Axis.horizontal,
-          ),
-        ),
-        _componentBlock(
-          title: 'Service Pills',
-          fileName: 'service_pills.dart',
-          child: InstaCareServicePills(
-            services: const ['Minor', 'Major', 'Nursing'],
-            selected: selectedService,
-            onSelected: (value) => setState(() => selectedService = value),
-          ),
-        ),
-        _componentBlock(
-          title: 'Filter Pills',
-          fileName: 'filter_pills.dart',
-          child: InstaCareFilterPills(
-            items: const ['Wound Dressing', 'Injection', 'Vitals'],
-            selected: selectedFilters,
-            onToggle: (item) {
-              setState(() {
-                if (selectedFilters.contains(item)) {
-                  selectedFilters.remove(item);
-                } else {
-                  selectedFilters.add(item);
-                }
-              });
-            },
-          ),
-        ),
-        _componentBlock(
-          title: 'Rating Scale',
-          fileName: 'rating_scale.dart',
-          child: InstaCareRatingScale(
-            currentRating: rating,
-            onRatingChanged: (value) => setState(() => rating = value),
-          ),
-        ),
-        _sectionHeading('Dialogs'),
-        _componentBlock(
-          title: 'Confirmation Dialog',
-          fileName: 'confirmation_dialog.dart',
-          child: InstaCareButton.secondary(
-            text: 'Pop confirmation',
-            onPressed: () async {
-              final confirmed = await showInstaCareConfirmationDialog(
-                context: context,
-                title: 'Confirmation',
-                body: 'Do you want to continue?',
-              );
-              if (!mounted) return;
-              if (confirmed) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(const SnackBar(content: Text('Confirmed')));
-              }
-            },
-          ),
-        ),
-        _componentBlock(
-          title: 'Snackbar',
-          fileName: 'snackbar.dart',
-          child: Column(
-            children: [
-              InstaCareButton(
-                text: 'Show Success Snackbar',
-                fullWidth: true,
-                onPressed: () {
-                  InstaCareSnackbar.show(
-                    context: context,
-                    type: InstaCareSnackbarType.success,
-                    title: 'Success',
-                    message: 'Your action was completed successfully!',
-                  );
-                },
-              ),
-              const SizedBox(height: 10),
-              InstaCareButton(
-                text: 'Show Error Snackbar',
-                fullWidth: true,
-                onPressed: () {
-                  InstaCareSnackbar.show(
-                    context: context,
-                    type: InstaCareSnackbarType.error,
-                    title: 'Error',
-                    message: 'Something went wrong. Please try again.',
-                  );
-                },
-              ),
-              const SizedBox(height: 10),
-              InstaCareButton(
-                text: 'Show Info Snackbar',
-                fullWidth: true,
-                onPressed: () {
-                  InstaCareSnackbar.show(
-                    context: context,
-                    type: InstaCareSnackbarType.info,
-                    title: 'Information',
-                    message: 'Here is some useful information for you.',
-                  );
-                },
-              ),
-              const SizedBox(height: 10),
-              InstaCareButton(
-                text: 'Show Pending Snackbar',
-                fullWidth: true,
-                onPressed: () {
-                  InstaCareSnackbar.show(
-                    context: context,
-                    type: InstaCareSnackbarType.pending,
-                    title: 'Pending',
-                    message: 'Your request is being processed.',
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
   }
 
   Widget _buildFontWeightsGrid(
