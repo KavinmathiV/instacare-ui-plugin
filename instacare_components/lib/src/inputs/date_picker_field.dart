@@ -16,7 +16,7 @@ class InstaCareDatePickerField extends StatelessWidget {
     this.label,
     this.value,
     this.onChanged,
-    this.hint = 'dd-MM-yyyy',
+    this.hint = 'Select date',
     this.firstDate,
     this.lastDate,
     this.blockPastDates = false,
@@ -57,7 +57,7 @@ class InstaCareDatePickerField extends StatelessWidget {
               builder: (context, child) {
                 return Theme(
                   data: Theme.of(context).copyWith(
-                    colorScheme: ColorScheme.light(
+                    colorScheme: const ColorScheme.light(
                       primary: AppColors.primary900,
                       onPrimary: AppColors.baseWhite,
                       surface: AppColors.ivory300,
