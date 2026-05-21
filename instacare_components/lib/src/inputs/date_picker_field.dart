@@ -16,7 +16,7 @@ class InstaCareDatePickerField extends StatelessWidget {
     this.label,
     this.value,
     this.onChanged,
-    this.hint = 'mm/dd/yyyy',
+    this.hint = 'dd-MM-yyyy',
     this.firstDate,
     this.lastDate,
     this.blockPastDates = false,
@@ -26,7 +26,7 @@ class InstaCareDatePickerField extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = value == null
         ? hint
-        : '${value!.month.toString().padLeft(2, '0')}/${value!.day.toString().padLeft(2, '0')}/${value!.year}';
+        : '${value!.day.toString().padLeft(2, '0')}-${value!.month.toString().padLeft(2, '0')}-${value!.year}';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
