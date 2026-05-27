@@ -138,7 +138,7 @@ class _ICDropdownWithCheckboxState<T>
             // Tap-outside barrier
             Positioned.fill(
               child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
+                behavior: HitTestBehavior.opaque,
                 onTap: _removeOverlay,
               ),
             ),

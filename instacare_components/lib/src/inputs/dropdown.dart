@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui' show FlutterView;
 import '../theme/color.dart';
 import '../theme/typography.dart';
 
@@ -34,6 +35,7 @@ class _InstaCareDropdownState<T> extends State<InstaCareDropdown<T>>
   OverlayEntry? _overlayEntry;
   final ScrollController _scrollController = ScrollController();
   double _keyboardHeightAtOpen = 0;
+  FlutterView? _view;
 
   @override
   void initState() {
@@ -42,6 +44,12 @@ class _InstaCareDropdownState<T> extends State<InstaCareDropdown<T>>
     if (widget.initiallyExpanded) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _showOverlay());
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _view = View.of(context);
   }
 
   @override
@@ -59,7 +67,7 @@ class _InstaCareDropdownState<T> extends State<InstaCareDropdown<T>>
     // dropdown). Dismissing the keyboard also fires didChangeMetrics — if we
     // close then, tapping this dropdown while a text field is focused causes
     // the overlay to open and immediately disappear (device-specific race).
-    final view = WidgetsBinding.instance.platformDispatcher.views.first;
+    final view = _view ?? WidgetsBinding.instance.platformDispatcher.views.first;
     final currentKeyboardHeight = view.viewInsets.bottom / view.devicePixelRatio;
     if (currentKeyboardHeight > _keyboardHeightAtOpen) {
       _removeOverlay();
@@ -91,7 +99,7 @@ class _InstaCareDropdownState<T> extends State<InstaCareDropdown<T>>
       return;
     }
 
-    final view = WidgetsBinding.instance.platformDispatcher.views.first;
+    final view = _view ?? WidgetsBinding.instance.platformDispatcher.views.first;
     _keyboardHeightAtOpen = view.viewInsets.bottom / view.devicePixelRatio;
     _overlayEntry = _createOverlayEntry();
     overlay.insert(_overlayEntry!);
@@ -132,7 +140,7 @@ class _InstaCareDropdownState<T> extends State<InstaCareDropdown<T>>
           // Tap-outside barrier
           Positioned.fill(
             child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
+              behavior: HitTestBehavior.opaque,
               onTap: _removeOverlay,
             ),
           ),

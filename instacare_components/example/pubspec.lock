@@ -49,30 +49,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.1"
-  convert:
-    dependency: transitive
-    description:
-      name: convert
-      sha256: b30acd5944035672bc15c6b7a8b47d773e41e2f17de064350988c5d02adb1c68
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.2"
-  country_flags:
-    dependency: transitive
-    description:
-      name: country_flags
-      sha256: dbc4f76e7c801619b2d841023e0327191ba00663f1f1b4770394e9bc6632c444
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.0"
-  country_picker:
-    dependency: transitive
-    description:
-      name: country_picker
-      sha256: "9b14c04f9a35e99f6de6bcbc453a556bb98345aecb481c7a0e843c94c2bee1f8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.27"
   crypto:
     dependency: transitive
     description:
@@ -162,22 +138,14 @@ packages:
       relative: true
     source: path
     version: "1.1.1"
-  jovial_misc:
+  intl_phone_field:
     dependency: transitive
     description:
-      name: jovial_misc
-      sha256: "065b5240badae6b13472efdea28fffe8baf914a7831361469a95c6456d9b8dc8"
+      name: intl_phone_field
+      sha256: "73819d3dfcb68d2c85663606f6842597c3ddf6688ac777f051b17814fe767bbf"
       url: "https://pub.dev"
     source: hosted
-    version: "0.10.0"
-  jovial_svg:
-    dependency: transitive
-    description:
-      name: jovial_svg
-      sha256: "99e9c3afcf7371ae38083ad52de23677d6d751f46150c3c6ae842e009e84d9f0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.29"
+    version: "3.2.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -391,14 +359,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  universal_io:
-    dependency: transitive
-    description:
-      name: universal_io
-      sha256: f63cbc48103236abf48e345e07a03ce5757ea86285ed313a6a032596ed9301e2
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.1"
   vector_graphics:
     dependency: transitive
     description:
